@@ -1,14 +1,17 @@
 function [ Dict,Ztrain,Ztest,varargout ] = Imodel( train_s,test_s,N_samples,K,modeltype,exception_percent,varargin)
 %function [ A,Ztrain,Ztest,varargout ] = Imodel( train_s,test_s,N_samples,K,modeltype,varargin)
-%   Get the learnt dictionary, feature of training and testing data of our proposed method
+%   Get the learnt dictionary, feature of training and testing data of our
+%   proposed method and comparable methods
 %	Input:  train_s: training set,
 %			test_s:	testing set,
 %			N_samples: number of samples in each class
 %			K: number of classes
-%			modeltype: 
-%
-%
-%
+%			modeltype: which method should we use
+%           exception_percent: define how much training samples are
+%           regarded as outliers (define in percentage/100)
+%   Output: Dict: dictionary;
+%                Ztrain: the code of training set 
+%                Ztest: the code of testing set
 %
 %
 switch modeltype
@@ -35,7 +38,7 @@ switch modeltype
         Lbeta = length(beta);
         alpha = reshape(repmat(alpha,Lbeta,1),1,Lalpha*Lbeta);  beta = repmat(beta,1,Lalpha);
         
-        [Dict,AN,~,~,~] = arrayfun(@(alpha,beta) RDNMF(train_s,N_samples,R,RC,alpha,beta,[],[],[],1,1,32),alpha,beta,'UniformOutput',false);
+        [Dict,AN,~,~,~] = arrayfun(@(alpha,beta) RDNMF(train_s,N_samples,R,RC,alpha,beta,[],[],[],1,0,32),alpha,beta,'UniformOutput',false);
         [Dict Ztrain Ztest] = arrayfun(@(AI) getcode(train_s, test_s, AI),Dict,'UniformOutput',false);
         
     case 'DNMF'

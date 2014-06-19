@@ -9,8 +9,6 @@ fea = (fea*255)./(ones(size(fea,1),1)*maxfea);
 %===========================================
 datasetname = 'ORL';
 K= 40;
-% n_outlier = 1;%#outlier per class
-% n_train_eachclass = 8-n_outlier;
 n_train_eachclass = 8;
 load(['Data\ORL\' num2str(n_train_eachclass) 'Train\5.mat']);
 outlier_idx = [];
@@ -26,7 +24,7 @@ R = 6;
 RC = 5;
 exception_ratio = (R-RC)/n_train_eachclass;
 alpha = [  0.2 ];% 0.02:0.03:0.1]; 
-beta = [  2];% 0.5 0.7 1];
+beta = [ 1];% 0.5 0.7 1];
 svm_mode = 'g';
 classifier = 'knn';
 
@@ -40,7 +38,3 @@ As = zeros(1,ct); Bs = zeros(1,ct);Cs = zeros(1,ct);Ds = zeros(1,ct);
 for it = 1:ct
     Main;
 end 
-% As = mean(As)
-% Bs = mean(Bs)
-%Cs = mean(Cs)
-% Ds = mean(Ds)

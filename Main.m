@@ -3,7 +3,7 @@ classifier = 'knn';
 
 fprintf('---------DIRECT KNN---------\n');
 predictlabel = knnclassify(test_s',train_s',train_l,KNNK);
-A = length(find(predictlabel==test_l))/length(test_l);
+A = length(find(predictlabel==test_l))/length(test_l)*100;
 fprintf('Accuracy = %.4f\n',A);
 eval([datasetname '.knn = A;']);
 res_KNN(it) = A;
